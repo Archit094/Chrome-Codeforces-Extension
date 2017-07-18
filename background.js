@@ -3,18 +3,28 @@
  */
 chrome.extension.onRequest.addListener(function (request,sender)
 {
-    console.log('request recieved') ;
     f1() ;
 }) ;
-function f1() {
-    chrome.notifications.create('name-for-notification', {
-            type: 'basic',
-            iconUrl: 'image.jpeg',
-            title: "This is a notification",
-            message: "hello there!"
-        },
-        function () {
-            console.log('created !')
-        }
-    );
+function f1()
+{
+    console.log('creating ....') ;
+    var x = $.get('http://codeforces.com/api/user.status?handle=npcompete94&from=1&count=5') ;
+    var i ;
+    // var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
+    var submissions = JSON.parse(Get('http://codeforces.com/api/user.status?handle=npcompete94&from=1&count=5'));
+    var probs = submissions.result;
+    var s  = "" ;
+    alert(JSON.stringify(probs)) ;
+    for(i = 0 ; i<probs.length ; i++)
+    {
+        s+=((probs[i].problem).contestId+" "+(probs[i].problem).index)+'\n' ;
+    }
+    alert(s) ;
+}
+function Get(yourUrl)
+{
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;
 }

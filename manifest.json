@@ -1,19 +1,19 @@
 {
   "manifest_version": 2,
-  "name": "My Cool Extension",
+  "name": "Friends Notifier",
   "version": "0.1",
   "permissions": [
     "notifications"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["jquery-3.2.1.js","background.js"]
   },
   "content_scripts": [
     {
       "matches": [
         "<all_urls>"
       ],
-      "js": ["content.js"]
+      "js": ["jquery-3.2.1.js","content.js"]
     }
   ]
 }
