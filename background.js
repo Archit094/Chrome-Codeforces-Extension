@@ -3,23 +3,37 @@
  */
 chrome.extension.onRequest.addListener(function (request,sender)
 {
-    f1() ;
+    doIt();
 }) ;
-function f1()
+
+function doIt()
+{
+    var friends = ["uwi","KAN","npcompete94"]; //JSON.parse('http://codeforces.com/api/sinus_070.friends?onlyOnline=false');
+    for(var i = 0; i<friends.length; i++)
+    {
+        printProblems(friends[i]);
+    }
+}
+function printProblems(usern)
 {
     console.log('creating ....') ;
-    var x = $.get('http://codeforces.com/api/user.status?handle=npcompete94&from=1&count=5') ;
+    var x = $.get('http://codeforces.com/api/user.status?handle='+usern+'&from=1&count=5') ;
     var i ;
     // var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
-    var submissions = JSON.parse(Get('http://codeforces.com/api/user.status?handle=npcompete94&from=1&count=5'));
+    var submissions = JSON.parse(Get('http://codeforces.com/api/user.status?handle='+usern+'&from=1&count=5'));
     var probs = submissions.result;
     var s  = "" ;
-    alert(JSON.stringify(probs)) ;
+    var probSet = new Set();
+    // alert(JSON.stringify(probs)) ;
     for(i = 0 ; i<probs.length ; i++)
     {
-        s+=((probs[i].problem).contestId+" "+(probs[i].problem).index)+'\n' ;
+        probSet.add(((probs[i].problem).contestId+" "+(probs[i].problem).index)) ;
     }
-    alert(s) ;
+    for (var problem of probSet)
+    {
+        s += problem+'\n';
+    }
+    alert(usern + '\n' + s);
 }
 function Get(yourUrl)
 {
