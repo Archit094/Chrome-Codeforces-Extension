@@ -8,11 +8,26 @@ chrome.extension.onRequest.addListener(function (request,sender)
 
 function doIt()
 {
-    var friends = ["uwi","KAN","npcompete94"]; //JSON.parse('http://codeforces.com/api/sinus_070.friends?onlyOnline=false');
+
+    writeToList(['uwi','KAN','Petr']);
+
+    var friends = getList();
+    alert(friends);
     for(var i = 0; i<friends.length; i++)
     {
         printProblems(friends[i]);
     }
+
+}
+function getList()
+{
+    var items = JSON.parse(localStorage.getItem('users'));
+    return items;
+}
+function writeToList(ls)
+{
+    localStorage.setItem('users',JSON.stringify(ls));
+    // alert(JSON.parse(localStorage.getItem('users')));
 }
 function printProblems(usern)
 {
