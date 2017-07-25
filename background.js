@@ -21,10 +21,10 @@ function doIt()
 }
 function getList()
 {
-    var items = JSON.parse(localStorage.getItem('users'));
+    var items = JSON.parse(localStorage.getItem('users')); 
     return items;
 }
-function writeToList(ls)
+function writeToList(ls) //writes ls(list) to local storage
 {
     localStorage.setItem('users',JSON.stringify(ls));
     // alert(JSON.parse(localStorage.getItem('users')));
