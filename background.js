@@ -3,32 +3,55 @@
  */
 chrome.extension.onRequest.addListener(function (request,sender)
 {
+    // doLocal();
+
     doIt();
-}) ;
+});
 
 function doIt()
 {
+    //uncomment the below commented part to see how it works
+    // alert(getUsers());
+    addUser(['uwi','KAN','Petr']);
+    //
+    // alert(getUsers());
+    //
+    addUser("tourist");
+    //
+    // alert(getUsers());
+    var ls1 = ["Um_nik","send_nodes"];
+    addUserList(ls1);
 
-    writeToList(['uwi','KAN','Petr']);
-
-    var friends = getList();
-    alert(friends);
+    friends = getUsers().split(',');
     for(var i = 0; i<friends.length; i++)
     {
         printProblems(friends[i]);
     }
+}
 
-}
-function getList()
+function getUsers()
 {
-    var items = JSON.parse(localStorage.getItem('users')); 
-    return items;
+    return localStorage.getItem('users');
 }
-function writeToList(ls) //writes ls(list) to local storage
+function addUser(user)
 {
-    localStorage.setItem('users',JSON.stringify(ls));
-    // alert(JSON.parse(localStorage.getItem('users')));
+    var oldUsers = (getUsers()).split(',');
+    oldUsers.push(user);
+    writeToList("users",oldUsers);
 }
+function addUserList(ls) {
+    var ls1 = getUsers().split(',');
+    alert(ls1);
+    ls1.push.apply(ls1,ls);
+    alert(ls1);
+    writeToList(ls1);
+}
+
+function writeToList(name, ls)
+{
+    localStorage.setItem(name,ls);
+}
+
 function printProblems(usern)
 {
     console.log('creating ....') ;
@@ -39,15 +62,19 @@ function printProblems(usern)
     var probs = submissions.result;
     var s  = "" ;
     var probSet = new Set();
-    // alert(JSON.stringify(probs)) ;
+
     for(i = 0 ; i<probs.length ; i++)
     {
         probSet.add(((probs[i].problem).contestId+" "+(probs[i].problem).index)) ;
     }
+
+
     for (var problem of probSet)
     {
         s += problem+'\n';
     }
+
+    // addProblem(yy);
     alert(usern + '\n' + s);
 }
 function Get(yourUrl)
