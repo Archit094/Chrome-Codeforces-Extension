@@ -1,9 +1,6 @@
-/**
- * Created by archit on 18/07/17.
- */
+
 chrome.extension.onRequest.addListener(function (request,sender)
 {
-    // doLocal();
 
     doIt();
 });
@@ -55,7 +52,7 @@ function writeToList(name, ls)
 function printProblems(usern)
 {
     console.log('creating ....') ;
-    var x = $.get('http://codeforces.com/api/user.status?handle='+usern+'&from=1&count=5') ;
+//     var x = $.get('http://codeforces.com/api/user.status?handle='+usern+'&from=1&count=5') ;
     var i ;
     // var obj = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
     var submissions = JSON.parse(Get('http://codeforces.com/api/user.status?handle='+usern+'&from=1&count=5'));
